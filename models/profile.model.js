@@ -18,7 +18,7 @@ const profileSchema = {
     email: String,
     contact: Number,
     department: String,
-    role: String,
+    role: String, //admin or student
     numberOfResourceUploaded: {
         type: Number,
         default: 0,
@@ -26,3 +26,4 @@ const profileSchema = {
 };
 
 const Profile = mongoose.model(profileSchema);
+export default Profile;
