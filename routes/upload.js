@@ -36,14 +36,19 @@ async function deleteFile(fileId) {
 
 router.post("/", async (req, res) => {
     if (req.files) {
-        console.log(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
-        const result = await uploadFile(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
-        console.log(result);
-        res.status(200).json({
-            viewLink: result.webViewLink,
-            downloadLink: result.webContentLink,
-            id: result.id
-        });
+        try {
+            console.log(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
+            const result = await uploadFile(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
+            console.log(result);
+            res.status(200).json({
+                viewLink: result.webViewLink,
+                downloadLink: result.webContentLink,
+                id: result.id
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({ message: "Failed to upload" });
+        }
     } else {
         console.log("No file uploaded");
     }

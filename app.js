@@ -22,7 +22,9 @@ app.use(express.json());
 app.use("/rooms", rooms);
 app.use("/uploadFile", upload);
 
-mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME);
+mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME)
+    .then(() => console.log("connected to database"))
+    .catch(() => console.log("Unable to connect to database"));
 
 
 const port = process.env.PORT || 3000;
