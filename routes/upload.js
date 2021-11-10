@@ -32,9 +32,32 @@ async function deleteFile(fileId) {
             console.log(res);
         }).catch((err) => {
             console.log(err);
+            throw err;
         })
 }
 
+
+router.delete("/", (req, res) => {
+    if (req.body) {
+        const driveId = req.body.driveId;
+        const mongoId = req.body.mongoId;
+        try {
+            await deleteFile(driveId);
+            Resource.findByIdAndDelete(mongoId)
+                .then((data) => {
+                    res.status(200).send({ message: "Deleted Successfully" });
+                })
+                .catch((err) => {
+                    res.status(400).send({ message: err.message });
+                })
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({ message: err.message });
+        }
+    } else {
+        res.status(400).send({ message: "Failed to delete" });
+    }
+});
 
 router.post("/", async (req, res) => {
     if (req.files) {

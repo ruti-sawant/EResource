@@ -34,6 +34,21 @@ router.post("/", (req, res) => {
         console.log("No data uploaded");
         res.status(400).send({ message: "Failed to add Link" });
     }
+});
+
+router.delete("/", (req, res) => {
+    if (req.body) {
+        const mongoId = req.body.mongoId;
+        Resource.findByIdAndDelete(mongoId)
+            .then((data) => {
+                res.status(200).send({ message: "Deleted Successfully" });
+            })
+            .catch((err) => {
+                res.status(400).send({ message: err.message });
+            });
+    } else {
+        res.status(400).send({ message: "Failed to delete" });
+    }
 })
 
 
