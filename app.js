@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import rooms from "./routes/rooms.js";
-
+import upload from "./routes/upload.js";
 const corsOptions = {
     origin: '*',
     credentials: true,            //access-control-allow-credentials:true
@@ -20,6 +20,7 @@ app.use(fileUpload());
 app.use(express.json());
 
 app.use("/rooms", rooms);
+app.use("/uploadFile", upload);
 
 mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME);
 
