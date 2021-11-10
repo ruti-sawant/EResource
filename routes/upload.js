@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 
+import Resource from '../models/resources.model.js';
+
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRETE;
 const redirectUri = process.env.REDIRECT_URI;
@@ -39,18 +41,38 @@ router.post("/", async (req, res) => {
         try {
             console.log(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
             const result = await uploadFile(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
-            console.log(result);
-            res.status(200).json({
-                viewLink: result.webViewLink,
-                downloadLink: result.webContentLink,
-                id: result.id
+            //code to insert into database.
+            const resource = new Resource({
+                resourceName: req.files.fileToUpload.name,
+                driveLink: {
+                    webViewLink: result.webViewLink,
+                    webContentLink: result.webContentLink,
+                    id: result.id,
+                },
+                author: {
+                    name: req.body.name,
+                    PRN: req.body.PRN,
+                    email: req.body.email,
+                    username: req.body.username,
+                },
+                //function call to get current system date
+                timestamp: new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }),
+                room: req.body.room + "_" + req.body.branch + "_" + req.body.subject,
             });
+            resource.save()
+                .then((data) => {
+                    res.status(200).send({ message: "File inserted successfully " + data._id });
+                })
+                .catch((err) => {
+                    res.status(400).send({ message: err.message });
+                });
         } catch (err) {
             console.log(err);
             res.status(400).send({ message: "Failed to upload" });
         }
     } else {
         console.log("No file uploaded");
+        res.status(400).send({ message: "Failed to upload" });
     }
 });
 export default router;

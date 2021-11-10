@@ -11,7 +11,7 @@ router.get("/:roomName?/:branchName?", (req, res) => {
         Subject.find({ roomName: roomName, branchName: branchName },
             { subjectName: 1 })
             .then((data) => {
-                console.log("data", data);
+                // console.log("data", data);
                 res.status(200).send(data);
             })
             .catch((err) => {
@@ -21,7 +21,7 @@ router.get("/:roomName?/:branchName?", (req, res) => {
         Branch.find({ roomName: roomName },
             { branchName: 1 })
             .then((data) => {
-                console.log("data", data);
+                // console.log("data", data);
                 res.status(200).send(data);
             })
             .catch((err) => {
@@ -31,7 +31,7 @@ router.get("/:roomName?/:branchName?", (req, res) => {
         Room.find({},
             { roomName: 1 })
             .then((data) => {
-                console.log("data", data);
+                // console.log("data", data);
                 res.status(200).send(data);
             })
             .catch((err) => {

@@ -2,15 +2,14 @@ import mongoose from 'mongoose';
 
 const resourceSchema = {
     resourceName: {
-        type: String,
-        required: true
+        type: String
     },
     driveLink: {
         webViewLink: String,
         webContentLink: String,
         id: String,
     },
-    auther: {
+    author: {
         name: String,
         PRN: String,
         email: String,
@@ -18,7 +17,10 @@ const resourceSchema = {
     },
     timestamp: String,
     room: String,
-    link: String,//if link is directly inserted otherwise driveLink object will contain link
+    externalLink: {//if link is directly inserted otherwise driveLink object will contain link
+        link: String,
+        description: String,
+    }
 };
 
 

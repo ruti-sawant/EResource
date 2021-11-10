@@ -1,8 +1,6 @@
-import path from "path";
 import express from "express";
 import fileUpload from "express-fileupload";
 const app = express();
-import fetch from 'node-fetch';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from "dotenv";
@@ -10,6 +8,9 @@ dotenv.config();
 
 import rooms from "./routes/rooms.js";
 import upload from "./routes/upload.js";
+import uploadLink from "./routes/uploadLink.js";
+import resources from "./routes/resources.js";
+
 const corsOptions = {
     origin: '*',
     credentials: true,            //access-control-allow-credentials:true
@@ -21,6 +22,8 @@ app.use(express.json());
 
 app.use("/rooms", rooms);
 app.use("/uploadFile", upload);
+app.use("/uploadLink", uploadLink);
+app.use("/resources", resources);
 
 mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME)
     .then(() => console.log("connected to database"))
