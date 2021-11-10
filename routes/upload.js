@@ -37,7 +37,7 @@ async function deleteFile(fileId) {
 }
 
 
-router.delete("/", (req, res) => {
+router.delete("/", async (req, res) => {
     if (req.body) {
         const driveId = req.body.driveId;
         const mongoId = req.body.mongoId;
