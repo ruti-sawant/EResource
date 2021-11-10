@@ -7,6 +7,7 @@ router.post("/", (req, res) => {
     if (req.body) {
         console.log(req.body);
         const resource = new Resource({
+            resourceName: req.body.linkName,
             author: {
                 name: req.body.name,
                 PRN: req.body.PRN,
