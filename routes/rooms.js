@@ -40,6 +40,51 @@ router.get("/:roomName?/:branchName?", (req, res) => {
     }
 });
 
+router.post("/:roomName/:branchName?/:subjectName?", (req, res) => {
+    const roomName = req.params.roomName;
+    const branchName = req.params.branchName;
+    const subjectName = req.params.subjectName;
+    if (subjectName) {
+        const subject = new Subject({
+            roomName: roomName,
+            branchName: branchName,
+            subjectName: subjectName
+        });
+        subject.save()
+            .then((data) => {
+                res.status(200).send({ message: "Subject inserted successfully " + data._id });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).send({ message: err.message });
+            });
+    } else if (branchName) {
+        const branch = new Branch({
+            roomName: roomName,
+            branchName: branchName,
+        });
+        branch.save()
+            .then((data) => {
+                res.status(200).send({ message: "Branch inserted successfully " + data._id });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).send({ message: err.message });
+            });
+    } else {
+        const room = new Room({
+            roomName: roomName,
+        });
+        room.save()
+            .then((data) => {
+                res.status(200).send({ message: "Room inserted successfully " + data._id });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).send({ message: err.message });
+            });
+    }
+});
 
 export default router;
 
