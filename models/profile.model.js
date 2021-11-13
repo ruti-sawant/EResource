@@ -5,10 +5,6 @@ const profileSchema = {
         type: String,
         required: true,
     },
-    password: {
-        type: String,
-        required: true,
-    },
     name: {
         firstName: String,
         middleName: String,
@@ -18,7 +14,7 @@ const profileSchema = {
     email: String,
     contact: Number,
     department: String,
-    role: String, //admin or student
+    role: String, //admin or student or TPO
     numberOfResourceUploaded: {
         type: Number,
         default: 0,
