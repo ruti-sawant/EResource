@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 const corsOptions = {
+    'Access-Control-Allow-Origin': '*',
     origin: ['https://n3npo.csb.app', 'https://e0g3u.csb.app/', '*'],
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
