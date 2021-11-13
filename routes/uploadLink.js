@@ -2,8 +2,9 @@ import express, { Router } from 'express';
 const router = express.Router();
 
 import Resource from '../models/resources.model.js';
+import middleware from '../middleware.js';
 
-router.post("/", (req, res) => {
+router.post("/", middleware, (req, res) => {
     if (req.body) {
         console.log(req.body);
         const resource = new Resource({
@@ -36,7 +37,7 @@ router.post("/", (req, res) => {
     }
 });
 
-router.delete("/", (req, res) => {
+router.delete("/", middleware, (req, res) => {
     if (req.body) {
         const mongoId = req.body.mongoId;
         Resource.findByIdAndDelete(mongoId)

@@ -8,7 +8,7 @@ import session from 'express-session';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-
+import middleware from '../middleware.js';
 const corsOptions = {
     'Access-Control-Allow-Origin': '*',
     origin: ['*'],
@@ -33,7 +33,7 @@ router.use(session({
 router.use(cookieParser());
 router.use(express.json());
 
-router.get("/", (req, res) => {
+router.get("/", middleware, (req, res) => {
     if (req.cookies[process.env.COOKIE_NAME]) {
         const decodedData = jwt.verify(req.cookies[process.env.COOKIE_NAME], process.env.JWT_ACCESS_TOKEN);
         console.log(process.env.COOKIE_NAME);
@@ -44,7 +44,7 @@ router.get("/", (req, res) => {
     }
 });
 
-router.post("/", (req, res) => {
+router.post("/", middleware, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     User.findOne({ username: username })

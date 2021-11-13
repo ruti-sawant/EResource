@@ -2,9 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import { Room, Branch, Subject } from '../models/hierarchy.model.js'
+import middleware from '../middleware.js';
 
 const router = express.Router();
-router.get("/:roomName?/:branchName?", (req, res) => {
+router.get("/:roomName?/:branchName?", middleware, (req, res) => {
     const roomName = req.params.roomName;
     const branchName = req.params.branchName;
     if (branchName) {
@@ -40,7 +41,7 @@ router.get("/:roomName?/:branchName?", (req, res) => {
     }
 });
 
-router.post("/:roomName/:branchName?/:subjectName?", (req, res) => {
+router.post("/:roomName/:branchName?/:subjectName?", middleware, (req, res) => {
     const roomName = req.params.roomName;
     const branchName = req.params.branchName;
     const subjectName = req.params.subjectName;

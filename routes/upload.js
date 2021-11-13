@@ -5,7 +5,7 @@ dotenv.config();
 const router = express.Router();
 
 import Resource from '../models/resources.model.js';
-
+import middleware from '../middleware.js';
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRETE;
 const redirectUri = process.env.REDIRECT_URI;
@@ -37,7 +37,7 @@ async function deleteFile(fileId) {
 }
 
 
-router.delete("/", async (req, res) => {
+router.delete("/", middleware, async (req, res) => {
     if (req.body) {
         const driveId = req.body.driveId;
         const mongoId = req.body.mongoId;
@@ -59,7 +59,7 @@ router.delete("/", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", middleware, async (req, res) => {
     if (req.files) {
         try {
             console.log(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);

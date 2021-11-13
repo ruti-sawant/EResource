@@ -1,8 +1,9 @@
 import express from 'express';
 const router = express.Router();
+import middleware from '../middleware.js';
 
 import Resource from '../models/resources.model.js';
-router.get("/", (req, res) => {
+router.get("/", middleware, (req, res) => {
     Resource.find({})
         .then((data) => {
             res.status(200).send(data);
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
         });
 })
 
-router.get("/rooms/:roomName", (req, res) => {
+router.get("/rooms/:roomName", middleware, (req, res) => {
     const room = req.params.roomName;
     Resource.find({ room: room })
         .then((data) => {
@@ -23,7 +24,7 @@ router.get("/rooms/:roomName", (req, res) => {
         });
 });
 
-router.get("/users/:username", (req, res) => {
+router.get("/users/:username", middleware, (req, res) => {
     const username = req.params.username;
     Resource.find({ 'author.username': username })
         .then((data) => {

@@ -12,6 +12,7 @@ import resources from "./routes/resources.js";
 import login from "./routes/login.js";
 import register from "./routes/register.js";
 import cookieParser from "cookie-parser";
+import middleware from './middleware.js';
 const corsOptions = {
     'Access-Control-Allow-Origin': '*',
     origin: ['*'],
@@ -38,7 +39,7 @@ mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME)
 const port = process.env.PORT || 3000;
 
 
-app.get("/logout", (req, res) => {
+app.get("/logout", middleware, (req, res) => {
     //code to delete cookie
     res.cookie(process.env.COOKIE_NAME, '', {
         httpOnly: true,

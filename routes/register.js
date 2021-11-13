@@ -2,9 +2,9 @@ import express from 'express';
 const router = express.Router();
 import bcrypt from 'bcrypt';
 import User from '../models/login.model.js';
+import middleware from '../middleware.js';
 
-
-router.post("/", (req, res) => {
+router.post("/", middleware, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
