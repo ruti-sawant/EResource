@@ -7,6 +7,7 @@ import User from '../models/login.model.js';
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const corsOptions = {
     origin: ['https://n3npo.csb.app', 'https://e0g3u.csb.app/', '*'],
