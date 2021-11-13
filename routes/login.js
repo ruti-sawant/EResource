@@ -8,6 +8,12 @@ import session from 'express-session';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 
+const corsOptions = {
+    origin: ['https://n3npo.csb.app', 'https://e0g3u.csb.app/', '*'],
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200
+}
+router.use(cors(corsOptions));
 router.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
