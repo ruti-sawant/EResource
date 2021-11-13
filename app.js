@@ -13,7 +13,8 @@ import login from "./routes/login.js";
 import register from "./routes/register.js";
 import cookieParser from "cookie-parser";
 const corsOptions = {
-    origin: ['https://n3npo.csb.app', 'https://e0g3u.csb.app/', '*'],
+    'Access-Control-Allow-Origin': '*',
+    origin: ['https://n3npo.csb.app', 'https://0dq6p.csb.app', '*'],
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
