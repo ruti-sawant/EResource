@@ -8,7 +8,7 @@ router.post("/", middleware, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
-    const saltRounds = process.env.SALT_ROUNDS;
+    const saltRounds = Number(process.env.SALT_ROUNDS);
     bcrypt.hash(password, saltRounds, function (err, hash) {
         if (err) {
             console.log("err", err);

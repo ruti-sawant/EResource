@@ -20,13 +20,6 @@ router.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        path: '/',
-        httpOnly: true,
-        secure: true,
-        maxAge: 3600000,
-        sameSite: 'none'
-    }
 }));
 
 
@@ -37,10 +30,13 @@ router.get("/", middleware, (req, res) => {
     if (req.cookies[process.env.COOKIE_NAME]) {
         const decodedData = jwt.verify(req.cookies[process.env.COOKIE_NAME], process.env.JWT_ACCESS_TOKEN);
         console.log(process.env.COOKIE_NAME);
-        res.status(200).send(decodedData);
+        res.status(200).send({
+            loggedIn: true,
+            decodedData: decodedData
+        });
     } else {
         console.log("no cookie exists");
-        res.status(401).send({ message: "Login session expired" });
+        res.status(200).send({ loggedIn: false });
     }
 });
 
@@ -55,18 +51,25 @@ router.post("/", middleware, (req, res) => {
                         const cookieData = { username: data.username, role: data.role };
                         const accessToken = jwt.sign(cookieData, process.env.JWT_ACCESS_TOKEN);
                         res.cookie(process.env.COOKIE_NAME, accessToken, {
+                            path: "/",
                             httpOnly: true,
                             maxAge: 3600000,
                             secure: true,
                             sameSite: 'none'
                         });
-                        res.status(200).send({ username: data.username, role: data.role });
+                        res.status(200).send({
+                            loggedIn: true,
+                            decodedData: {
+                                username: data.username,
+                                role: data.role
+                            }
+                        });
                     } else {
-                        res.status(401).send({ message: "Unauthorised user" });
+                        res.status(200).send({ loggedIn: false });
                     }
                 });
             } else {
-                res.status(404).send({ message: "User not Found" });
+                res.status(200).send({ loggedIn: false });
             }
         })
         .catch((err) => {
