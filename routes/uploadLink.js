@@ -37,7 +37,7 @@ router.post("/", middleware, (req, res) => {
     }
 });
 
-router.delete("/", middleware, (req, res) => {
+router.post("/delete", middleware, (req, res) => {
     if (req.body) {
         const mongoId = req.body.mongoId;
         Resource.findByIdAndDelete(mongoId)
