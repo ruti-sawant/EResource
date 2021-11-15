@@ -6,7 +6,7 @@ const router = express.Router();
 
 import Resource from '../models/resources.model.js';
 import middleware from '../middleware.js';
-
+import Profile from '../models/profile.model.js';
 
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRETE;
@@ -66,6 +66,12 @@ router.post("/", middleware, async (req, res) => {
         try {
             console.log(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
             const result = await uploadFile(req.files.fileToUpload.name, req.files.fileToUpload.mimetype, req.files.fileToUpload.data);
+            Profile.updateOne({ username: req.body.username },
+                { $inc: { numberOfResourceUploaded: 1 } })
+                .then((data) => { "increased for " + req.body.username })
+                .catch((err) => {
+                    console.log(err);
+                });
             //code to insert into database.
             const resource = new Resource({
                 resourceName: req.files.fileToUpload.name,
@@ -75,9 +81,6 @@ router.post("/", middleware, async (req, res) => {
                     id: result.id,
                 },
                 author: {
-                    name: req.body.name,
-                    PRN: req.body.PRN,
-                    email: req.body.email,
                     username: req.body.username,
                 },
                 //function call to get current system date

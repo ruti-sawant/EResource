@@ -3,16 +3,19 @@ const router = express.Router();
 
 import Resource from '../models/resources.model.js';
 import middleware from '../middleware.js';
+import Profile from '../models/profile.model.js';
 
 router.post("/", middleware, (req, res) => {
     if (req.body) {
-        console.log(req.body);
+        Profile.updateOne({ username: req.body.username },
+            { $inc: { numberOfResourceUploaded: 1 } })
+            .then((data) => { "increased for " + req.body.username })
+            .catch((err) => {
+                console.log(err);
+            });
         const resource = new Resource({
             resourceName: req.body.linkName,
             author: {
-                name: req.body.name,
-                PRN: req.body.PRN,
-                email: req.body.email,
                 username: req.body.username,
             },
             externalLink: {

@@ -60,7 +60,6 @@ router.post("/", middleware, (req, res) => {
                     });
                     newUser.save()
                         .then((result) => {
-                            console.log(result);
                             res.status(200).send({ message: "Added Successfully" });
                         })
                         .catch((err) => {

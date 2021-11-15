@@ -10,9 +10,6 @@ const resourceSchema = {
         id: String,
     },
     author: {
-        name: String,
-        PRN: String,
-        email: String,
         username: String,
     },
     timestamp: String,
