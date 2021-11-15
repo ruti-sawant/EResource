@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 
 import { Room, Branch, Subject } from '../models/hierarchy.model.js'
 import middleware from '../middleware.js';
@@ -88,4 +87,3 @@ router.post("/:roomName/:branchName?/:subjectName?", middleware, (req, res) => {
 });
 
 export default router;
-

@@ -1,6 +1,10 @@
+import dotenv from 'dotenv'
+dotenv.config();
 import express from 'express';
 const router = express.Router();
 import bcrypt from 'bcrypt';
+
+
 import User from '../models/login.model.js';
 import middleware from '../middleware.js';
 

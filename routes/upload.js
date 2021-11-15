@@ -6,6 +6,8 @@ const router = express.Router();
 
 import Resource from '../models/resources.model.js';
 import middleware from '../middleware.js';
+
+
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRETE;
 const redirectUri = process.env.REDIRECT_URI;

@@ -12,7 +12,7 @@ const profileSchema = {
     },
     PRN: String,
     email: String,
-    contact: Number,
+    contact: String,
     department: String,
     role: String, //admin or student or TPO
     numberOfResourceUploaded: {
@@ -21,5 +21,5 @@ const profileSchema = {
     }
 };
 
-const Profile = mongoose.model(profileSchema);
+const Profile = mongoose.model("profile", profileSchema);
 export default Profile;

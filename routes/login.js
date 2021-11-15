@@ -2,13 +2,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 const router = express.Router();
+
 import bcrypt from 'bcrypt';
-import User from '../models/login.model.js';
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+
+import User from '../models/login.model.js';
 import middleware from '../middleware.js';
+
 const corsOptions = {
     'Access-Control-Allow-Origin': '*',
     origin: ['*'],
@@ -29,7 +32,6 @@ router.use(express.json());
 router.get("/", middleware, (req, res) => {
     if (req.cookies[process.env.COOKIE_NAME]) {
         const decodedData = jwt.verify(req.cookies[process.env.COOKIE_NAME], process.env.JWT_ACCESS_TOKEN);
-        console.log(process.env.COOKIE_NAME);
         res.status(200).send({
             loggedIn: true,
             decodedData: decodedData
@@ -75,8 +77,6 @@ router.post("/", middleware, (req, res) => {
         .catch((err) => {
             res.status(400).send({ message: err.message });
         });
-
-
 });
 
 export default router;

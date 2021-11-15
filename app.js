@@ -1,18 +1,21 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import fileUpload from "express-fileupload";
 const app = express();
 import mongoose from 'mongoose';
 import cors from 'cors';
-import dotenv from "dotenv";
-dotenv.config();
+import cookieParser from "cookie-parser";
+
 import rooms from "./routes/rooms.js";
 import upload from "./routes/upload.js";
 import uploadLink from "./routes/uploadLink.js";
 import resources from "./routes/resources.js";
 import login from "./routes/login.js";
 import register from "./routes/register.js";
-import cookieParser from "cookie-parser";
 import middleware from './middleware.js';
+import profile from './routes/profile.js';
+
 const corsOptions = {
     'Access-Control-Allow-Origin': '*',
     origin: ['*'],
@@ -30,6 +33,7 @@ app.use("/uploadLink", uploadLink);
 app.use("/resources", resources);
 app.use("/login", login);
 app.use("/register", register);
+app.use("/profile", profile);
 
 mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME)
     .then(() => console.log("connected to database"))

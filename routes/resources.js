@@ -1,8 +1,10 @@
 import express from 'express';
 const router = express.Router();
-import middleware from '../middleware.js';
 
+import middleware from '../middleware.js';
 import Resource from '../models/resources.model.js';
+
+
 router.get("/", middleware, (req, res) => {
     Resource.find({})
         .then((data) => {
