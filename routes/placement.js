@@ -65,7 +65,7 @@ router.post("/", middleware, async (req, res) => {
         const placement = new Placement(objectToSave);
         placement.save()
             .then((data) => {
-                res.status(200).send({ message: "File inserted successfully " + data._id });
+                res.status(200).send({ message: "Record added with id " + data._id });
             })
             .catch((err) => {
                 res.status(400).send({ message: err.message });
