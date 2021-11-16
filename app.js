@@ -15,6 +15,8 @@ import login from "./routes/login.js";
 import register from "./routes/register.js";
 import middleware from './middleware.js';
 import profile from './routes/profile.js';
+import company from './routes/company.js';
+import placement from './routes/placement.js';
 
 const corsOptions = {
     'Access-Control-Allow-Origin': '*',
@@ -34,6 +36,8 @@ app.use("/resources", resources);
 app.use("/login", login);
 app.use("/register", register);
 app.use("/profile", profile);
+app.use("/company", company);
+app.use("/placement", placement);
 
 mongoose.connect(process.env.DB_URL + "/" + process.env.DB_NAME)
     .then(() => console.log("connected to database"))
