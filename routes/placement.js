@@ -50,7 +50,7 @@ router.post("/", middleware, async (req, res) => {
             branch: req.body.branch,
             yearOfPassing: req.body.yearOfPassing,
             company: company,
-            linkedinProfile: req.body.linkdinProfile,
+            linkedinProfile: req.body.linkedinProfile,
             //function call to get current system date
             timestamp: new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }),
         }
