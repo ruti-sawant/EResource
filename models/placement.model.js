@@ -14,7 +14,7 @@ const placementSchema = mongoose.Schema({
         webContentLink: String,
         id: String,
     },
-    linkdinProfile: String,
+    linkedinProfile: String,
     timestamp: String,
 });
 
