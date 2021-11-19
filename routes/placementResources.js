@@ -158,8 +158,8 @@ router.get("/", middleware, (req, res) => {
 })
 
 router.get("/branches/:branchName", middleware, (req, res) => {
-    const room = req.params.branchName;
-    PlacementResource.find({ room: room })
+    const branch = req.params.branchName;
+    PlacementResource.find({ branch: branch })
         .then((data) => {
             res.status(200).send(data);
         })
